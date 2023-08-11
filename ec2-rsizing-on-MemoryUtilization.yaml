@@ -1,0 +1,10 @@
+policies:
+  - name: ec2-rsizing-on-MemoryUtilization
+    resource: ec2
+    filters:
+      - type: metrics
+        name: MemoryUtilization
+        days: 7
+        period: 86400
+        value: 50
+        op: less-than

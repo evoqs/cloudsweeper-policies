@@ -1,0 +1,17 @@
+policies:
+  - name: ec2-rsizing
+    resource: ec2
+    filters:
+      - and:
+        - type: metrics
+          name: CPUUtilization
+          days: 3
+          period: 86400
+          value: 50
+          op: less-than
+        - type: metrics
+          name: MemoryUtilization
+          days: 3
+          period: 86400
+          value: 50
+          op: less-than
