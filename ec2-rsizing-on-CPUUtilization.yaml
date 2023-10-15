@@ -1,10 +1,24 @@
 policies:
-  - name: ec2-rsizing-on-CPUUtilization
+  - name: ec2-instances-low-cpu-utilization
     resource: ec2
     filters:
-      - type: metrics
-        name: CPUUtilization
-        days: 7
-        period: 86400
-        value: 50
-        op: less-than
+      - and:
+        - type: metrics
+          name: CPUUtilization
+          statistics: Maximum
+          value: 20
+          op: lte
+          days: 7
+          missing-value: 0
+          period: 86400
+        - type: metrics
+          name: MemoryUtilization
+          statistics: Maximum
+          value: 50
+          op: lte
+          days: 7
+          missing-value: 0
+          period: 86400
+        - type: value
+          key: State.Name
+          value: running
