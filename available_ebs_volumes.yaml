@@ -1,0 +1,10 @@
+policies:
+  - name: detect-unattached-ebs-volumes
+    resource: aws.ebs
+    filters:
+      - type: value
+        key: State
+        value: available
+      - type: value
+        key: Attachments
+        value: absent
